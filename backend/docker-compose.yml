@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend_product:
+    image: node:14
+    container_name: backend_product
+    restart: always
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    command: npm start
+    ports:
+      - "3000:3000"
+
+  backend_user:
+    image: node:14
+    container_name: backend_user
+    restart: always
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    command: npm start
+    ports:
+      - "4000:4000"
