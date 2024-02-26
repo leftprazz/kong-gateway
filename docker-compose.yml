@@ -121,7 +121,7 @@ services:
       - db
     deploy:
       restart_policy:
-        condition: always
+        condition: on-failure
 
   konga:
     image: pantsel/konga
