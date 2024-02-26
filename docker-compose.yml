@@ -23,7 +23,7 @@ services:
       - kong_postgres_password
     networks:
       - kong-net
-    restart: on-failure
+    restart: always
     deploy:
       restart_policy:
         condition: on-failure
@@ -43,7 +43,7 @@ services:
       - kong_postgres_password
     networks:
       - kong-net
-    restart: on-failure
+    restart: always
     deploy:
       restart_policy:
         condition: on-failure
@@ -81,7 +81,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 10
-    restart: on-failure
+    restart: always
     deploy:
       restart_policy:
         condition: on-failure
@@ -99,7 +99,7 @@ services:
       interval: 30s
       timeout: 30s
       retries: 3
-    restart: on-failure
+    restart: always
     deploy:
       restart_policy:
         condition: on-failure
