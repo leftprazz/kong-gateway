@@ -24,6 +24,9 @@ services:
     networks:
       - kong-net
     restart: always
+    deploy:
+      restart_policy:
+        condition: on-failure
 
   kong-migrations-up:
     image: "${KONG_DOCKER_TAG:-kong:latest}"
@@ -41,6 +44,9 @@ services:
     networks:
       - kong-net
     restart: always
+    deploy:
+      restart_policy:
+        condition: on-failure
 
   kong:
     container_name: kong
