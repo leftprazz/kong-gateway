@@ -26,7 +26,7 @@ services:
     restart: always
     deploy:
       restart_policy:
-        condition: on-failure
+        condition: always
 
   kong-migrations-up:
     image: "${KONG_DOCKER_TAG:-kong:latest}"
@@ -46,7 +46,7 @@ services:
     restart: always
     deploy:
       restart_policy:
-        condition: on-failure
+        condition: always
 
   kong:
     container_name: kong
@@ -84,8 +84,8 @@ services:
     restart: always
     deploy:
       restart_policy:
-        condition: on-failure
-    
+        condition: always
+
   db:
     image: postgres:9.5
     environment:
@@ -100,27 +100,29 @@ services:
       timeout: 30s
       retries: 3
     restart: always
-    deploy:
-      restart_policy:
-        condition: on-failure
     stdin_open: true
     tty: true
     networks:
       - kong-net
     volumes:
       - kong_data:/var/lib/postgresql/data
+    deploy:
+      restart_policy:
+        condition: always
 
- 
   konga-prepare:
     container_name: "konga_prepare"
     image: pantsel/konga
     command: "-c prepare -a postgres -u postgresql://kong:${KONG_PG_PASSWORD:-kong}@db:5432/konga"
     networks:
       - kong-net
-    restart: on-failure
+    restart: always
     depends_on:
       - db
-  
+    deploy:
+      restart_policy:
+        condition: always
+
   konga:
     image: pantsel/konga
     restart: always
@@ -135,7 +137,10 @@ services:
       - db
     ports:
       - "1337:1337"
-  
+    deploy:
+      restart_policy:
+        condition: always
+
 secrets:
   kong_postgres_password:
     file: ./POSTGRES_PASSWORD
