@@ -24,9 +24,6 @@ services:
     networks:
       - kong-net
     restart: always
-    deploy:
-      restart_policy:
-        condition: on-failure
 
   kong-migrations-up:
     image: "${KONG_DOCKER_TAG:-kong:latest}"
@@ -44,9 +41,6 @@ services:
     networks:
       - kong-net
     restart: always
-    deploy:
-      restart_policy:
-        condition: on-failure
 
   kong:
     container_name: kong
@@ -82,9 +76,6 @@ services:
       timeout: 10s
       retries: 10
     restart: always
-    deploy:
-      restart_policy:
-        condition: on-failure
     
   db:
     image: postgres:9.5
@@ -100,9 +91,6 @@ services:
       timeout: 30s
       retries: 3
     restart: always
-    deploy:
-      restart_policy:
-        condition: on-failure
     stdin_open: true
     tty: true
     networks:
